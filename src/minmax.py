@@ -141,14 +141,10 @@ class MinMaxAiBot:
         ai_count = window.count('O')
         player_count = window.count('X')
 
-        if ai_count == 2:
+        if ai_count == 2 and window.count(' ') == 1:
             return 5
-        elif player_count == 2:
+        elif player_count == 2 and window.count(' ') == 1:
             return -5
-        elif ai_count == 1 and window.count(' ') == 1:
-            return 1
-        elif player_count == 1 and window.count(' ') == 1:
-            return -1
         else:
             return 0
 
