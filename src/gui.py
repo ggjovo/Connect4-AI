@@ -127,11 +127,11 @@ class ConnectFourGUI:
         random_bot_rect = random_bot_text.get_rect(center=self.play_first_button.center)
         self.screen.blit(random_bot_text, random_bot_rect)
 
-        minmax_text = self.font.render("Hard", True, BACKGROUND_COLOR)
+        minmax_text = self.font.render("Normal", True, BACKGROUND_COLOR)
         minmax_rect = minmax_text.get_rect(center=self.play_second_button.center)
         self.screen.blit(minmax_text, minmax_rect)
 
-        alphabeta_text = self.font.render("Turbo Hard", True, BACKGROUND_COLOR)
+        alphabeta_text = self.font.render("Hard", True, BACKGROUND_COLOR)
         alphabeta_rect = alphabeta_text.get_rect(center=self.quit_button.center)
         self.screen.blit(alphabeta_text, alphabeta_rect)
 
