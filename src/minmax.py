@@ -19,7 +19,7 @@ class MinMaxAiBot:
         get_new_game_state(game, col, player): Creates a new game state after making a move.
     """
 
-    def __init__(self, max_depth=5):
+    def __init__(self, max_depth=4):
         """
         Initialize the MinMaxAiBot.
 
