@@ -292,6 +292,9 @@ class ConnectFourGUI:
                         winner = f"AI takes over the world!"
                     elif self.game.turn == 1:
                         winner = f"You won... Cheater!"
+                        
+                    if self.game.is_board_full():
+                        winner = "You matched AI level."
 
                     margin = 10
                     
@@ -326,6 +329,10 @@ class ConnectFourGUI:
                     self.screen.blit(main_menu_text, main_menu_rect)
                     
                     pygame.display.flip()
+                    
+                    play_again_button.inflate_ip(margin, margin)
+                    quit_button.inflate_ip(margin, margin)
+                    main_menu_button.inflate_ip(margin, margin)
 
                     waiting_for_input = True
                     while waiting_for_input:

@@ -19,7 +19,7 @@ class AlphaBetaAiBot:
         get_new_game_state(game, col, player): Creates a new game state after making a move.
     """
 
-    def __init__(self, max_depth=8):
+    def __init__(self, max_depth=7):
         """
         Initialize the AlphaBetaAiBot.
 
@@ -97,7 +97,7 @@ class AlphaBetaAiBot:
 
     def evaluate(self, game):
         """
-        Evaluates the current state of the Connect Four game.
+        Improved evaluation method that assigns scores based on winning positions and three in a row/diagonal/column.
 
         Parameters:
             game (ConnectFour): The current state of the Connect Four game.
@@ -106,9 +106,59 @@ class AlphaBetaAiBot:
             int: The evaluation score.
         """
         if game.is_winner('O'):
-            return 100
+            return 100_000
         elif game.is_winner('X'):
-            return -100
+            return -100_000
+        else:
+            score = 0
+
+            # Check for three in a row
+            for row in range(game.rows):
+                for col in range(game.cols - 2):
+                    window = [game.board[row][col], game.board[row][col + 1], game.board[row][col + 2]]
+                    score += self.evaluate_window(window)
+
+            # Check for three in a column
+            for col in range(game.cols):
+                for row in range(game.rows - 2):
+                    window = [game.board[row][col], game.board[row + 1][col], game.board[row + 2][col]]
+                    score += self.evaluate_window(window)
+
+            # Check for three in a diagonal (top-left to bottom-right)
+            for row in range(game.rows - 2):
+                for col in range(game.cols - 2):
+                    window = [game.board[row][col], game.board[row + 1][col + 1], game.board[row + 2][col + 2]]
+                    score += self.evaluate_window(window)
+
+            # Check for three in a diagonal (bottom-left to top-right)
+            for row in range(2, game.rows):
+                for col in range(game.cols - 2):
+                    window = [game.board[row][col], game.board[row - 1][col + 1], game.board[row - 2][col + 2]]
+                    score += self.evaluate_window(window)
+
+            return score
+
+    def evaluate_window(self, window):
+        """
+        Helper method to evaluate a window of three cells.
+
+        Parameters:
+            window (list): A list of three cells in a row, column, or diagonal.
+
+        Returns:
+            int: The score based on the contents of the window.
+        """
+        ai_count = window.count('O')
+        player_count = window.count('X')
+
+        if ai_count == 2:
+            return 5
+        elif player_count == 2:
+            return -5
+        elif ai_count == 1 and window.count(' ') == 1:
+            return 1
+        elif player_count == 1 and window.count(' ') == 1:
+            return -1
         else:
             return 0
 
